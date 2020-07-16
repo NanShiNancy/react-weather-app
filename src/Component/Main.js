@@ -11,11 +11,8 @@ const Main = (props) => (
     current={props.current}
     unit={props.unit}/>
   <WeatherForecast
-    className="weather-forecast"
-    city={props.city}
+    className="weather-forecast" 
     forecasts={props.forecasts}
-    changeLimit={props.changeLimit}
-    limit={props.limit}
     unit={props.unit}/>
     
 </ main>

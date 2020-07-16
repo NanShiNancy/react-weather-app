@@ -2,12 +2,13 @@ import React from 'react';
 import ForecastRow from './ForecastRow';
 import {format} from 'date-fns';
 
+import {connect} from 'react-redux';
+import {changeLimitAction} from '../redux/weatherActions';
 
 class WeatherForecast extends React.Component {  
     
     render(){
         // console.log(this.props.forecasts);
-        console.log(this.props.forecasts);
        
         return(
             <section className="weather-forecast">
@@ -23,7 +24,7 @@ class WeatherForecast extends React.Component {
                         10 item
                     </button>
                 </div>
-                {this.props.forecasts.map((forecast)=>{
+                {this.props.forecasts.slice(0, this.props.limit).map((forecast)=>{
                     const date = new Date(forecast.time * 1000);
 					const day = format(date, 'EEE');
                     const time = format(date, 'HH:mm');
@@ -42,14 +43,10 @@ class WeatherForecast extends React.Component {
     }
 };
 
-
-
-        
-        
-
-        
-    
-
-
-
-export default WeatherForecast;
+const mapStateToProps = state => ({
+    limit: state.weather.limit,
+});
+const mapDispatchToProps = dispatch => ({
+    changeLimit: limit=> dispatch (changeLimitAction(limit)), 
+});
+export default connect(mapStateToProps,mapDispatchToProps)(WeatherForecast);
