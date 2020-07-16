@@ -1,7 +1,5 @@
-import React, { Component } from 'react';
-import axios from 'axios';
-import {format} from 'date-fns';
-
+import React from 'react';
+import {getWeatherFor} from './utils/axios';
 
 import './App.css';
 import Header from './Component/Header';
@@ -14,46 +12,66 @@ class App extends React.Component{
     super(props);  
 
     this.state = {
+        input:'',
         forecasts: [],
-        limit:10
+        limit:10,
+        city: '',
+        current: {},
+        unit: 'c',
     };
   };
 
 
-  componentDidMount() {
+  componentDidMount(){
+    getWeatherFor('brisbane')
+    .then(this.updateWeather);
+  }
     //fetch data
-    axios('https://jr-weather-api.herokuapp.com/api/weather?cc=au&city=brisbane')
-        .then((response)=> { 
-            const forecasts= response.data.data.forecast.slice(0,10).map((forecast)=> {
-                const date = new Date(forecast.time*1000);
-                const day = format(date, 'EEE');
-                const time = format(date, 'HH:mm');
-                
-                return { 
-                    high:forecast.maxCelsius,
-                    low:forecast.minCelsius,
-                    day:day,
-                    time: time
-                };
-        });
-        this.setState({forecasts});                        
-    });
-
-  };
+ 
+  toggleUnit = () => {
+    this.setState(state => ({unit: state.unit ==='c'? 'f' : 'c'}));
+  }
+  
   changeLimit= (limit)=> {
     this.setState ({limit});
   };
  
+  onchangeInputHandeler=event=> {
+		this.setState({input: event.target.value});
+	};
+
+  citySearchHandler=()=>{
+    getWeatherFor(this.state.input).then(this.updateWeather)
+  };
+
+  updateWeather=res=>{
+      const forecasts= res.data.data.forecast.slice(0,10);
+      const city= res.data.data.city.name;
+      const current = res.data.data.current;
+      this.setState({forecasts, city, current});                        
+  };
+
+  
   render(){
     return (
       <div className="weather-channel__container">
         <Header />
-        <Nav  />
+        <Nav 
+          inputValue={this.state.input}
+          onchangeInputHandeler={this.onchangeInputHandeler} 
+          CitySearchHandler={this.citySearchHandler}
+          toggleUnit={this.toggleUnit}
+          unit={this.state.unit}/>
+          
         <Main 
           forecasts={this.state.forecasts.slice(0, this.state.limit)}
           changeLimit={this.changeLimit}
-          limit={this.state.limit}/>
-        <Footer/>
+          limit={this.state.limit}
+          city={this.state.city}
+          current={this.state.current}
+          unit={this.state.unit}/>
+          
+        <Footer />
       </div>
     );
   };

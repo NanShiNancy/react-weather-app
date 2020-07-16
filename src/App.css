@@ -21,6 +21,7 @@ button {
 	height: 100vh;
 	position: relative;
 }
+
 @media only screen and (min-width: 800px) {
 	.weather-channel__container {
 		max-width: 800px;
@@ -36,6 +37,7 @@ button {
 		padding: 8px 30px;
 	}
 }
+
 @media only screen and (min-width: 480px) {
 	.weather-condition,
 	.weather-forecast {
