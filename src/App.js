@@ -1,11 +1,15 @@
 import React from 'react';
 import {getWeatherFor} from './utils/axios';
+import {connect} from 'react-redux';
+
 
 import './App.css';
 import Header from './Component/Header';
 import Nav from './Component/Nav';
 import Main from './Component/Main';
 import Footer from './Component/Footer';
+import {fetchDataThunkAction} from './redux/weatherActions';
+
 
 class App extends React.Component{
   constructor(props){
@@ -13,28 +17,17 @@ class App extends React.Component{
 
     this.state = {
         input:'',
-        forecasts: [],
-        limit:10,
-        city: '',
-        current: {},
         unit: 'c',
     };
   };
-
-
   componentDidMount(){
-    getWeatherFor('brisbane')
-    .then(this.updateWeather);
+    this.props.fetchWeatherData('Brisbane');
   }
     //fetch data
  
   toggleUnit = () => {
     this.setState(state => ({unit: state.unit ==='c'? 'f' : 'c'}));
   }
-  
-  changeLimit= (limit)=> {
-    this.setState ({limit});
-  };
  
   onchangeInputHandeler=event=> {
 		this.setState({input: event.target.value});
@@ -42,13 +35,6 @@ class App extends React.Component{
 
   citySearchHandler=()=>{
     getWeatherFor(this.state.input).then(this.updateWeather)
-  };
-
-  updateWeather=res=>{
-      const forecasts= res.data.data.forecast.slice(0,10);
-      const city= res.data.data.city.name;
-      const current = res.data.data.current;
-      this.setState({forecasts, city, current});                        
   };
 
   
@@ -64,9 +50,6 @@ class App extends React.Component{
           unit={this.state.unit}/>
           
         <Main 
-          forecasts={this.state.forecasts}
-          city={this.state.city}
-          current={this.state.current}
           unit={this.state.unit}/>        
         <Footer />
       </div>
@@ -75,4 +58,13 @@ class App extends React.Component{
 
 };
 
-export default App;
+
+const mapStateToProps = state => ({
+  limit: state.weather.limit,
+  
+});
+
+const mapDispatchToProps = dispatch =>({
+  fetchWeatherData : city=> dispatch (fetchDataThunkAction(city)),
+});
+export default connect(mapStateToProps,mapDispatchToProps)(App);

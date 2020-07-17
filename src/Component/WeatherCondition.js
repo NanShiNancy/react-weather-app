@@ -3,7 +3,11 @@ import umbrella from '../assets/icons/icon-umberella.png';
 import wind from '../assets/icons/icon-wind.png';
 import compass from '../assets/icons/icon-compass.png';
 
-const WeatherCondition=(props)=> (
+import {connect} from 'react-redux';
+
+
+function WeatherCondition (props){
+   return(
     <section className="weather-condition" >
         <div className="weather-condition__location">{props.city}</div>
 
@@ -26,5 +30,13 @@ const WeatherCondition=(props)=> (
            
        </div>
     </section>
-);
-export default WeatherCondition;
+   ) 
+};
+
+const mapStateToProps = state =>({
+    current:state.weather.current,
+    city:state.weather.city, 
+});
+
+
+export default connect(mapStateToProps)(WeatherCondition);
