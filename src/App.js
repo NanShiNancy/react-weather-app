@@ -64,13 +64,10 @@ class App extends React.Component{
           unit={this.state.unit}/>
           
         <Main 
-          forecasts={this.state.forecasts.slice(0, this.state.limit)}
-          changeLimit={this.changeLimit}
-          limit={this.state.limit}
+          forecasts={this.state.forecasts}
           city={this.state.city}
           current={this.state.current}
-          unit={this.state.unit}/>
-          
+          unit={this.state.unit}/>        
         <Footer />
       </div>
     );
