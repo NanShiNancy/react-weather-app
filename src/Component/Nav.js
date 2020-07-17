@@ -1,4 +1,7 @@
 import React from 'react';
+import {connect} from 'react-redux';
+import { changeUnit } from '../redux/actions/navActions';
+
 
 
 const Nav = (props)=> (
@@ -21,4 +24,12 @@ const Nav = (props)=> (
 		</nav>
 );
 
-export default Nav;
+
+const mapStateToProps = state => ({
+	unit: state.nav.unit,
+});
+  
+const mapDispatchToProps = dispatch =>({
+	toggleUnit: () => dispatch (changeUnit()),
+});
+  export default connect(mapStateToProps,mapDispatchToProps)(Nav);

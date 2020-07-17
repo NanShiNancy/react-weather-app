@@ -1,4 +1,4 @@
-import {CHANGE_LIMIT, FETCH_DATA, FETCH_DATA_SUCCESS,FETCH_DATA_FAILURE} from './weatherActions';
+import {CHANGE_LIMIT, FETCH_DATA, FETCH_DATA_SUCCESS,FETCH_DATA_FAILURE} from '../actions/weatherActions';
 
 const initialState = {
     limit: 10,

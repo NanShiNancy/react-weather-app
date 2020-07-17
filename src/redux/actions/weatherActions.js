@@ -1,4 +1,4 @@
-import {getWeatherFor} from '../utils/axios';
+import {getWeatherFor} from '../../utils/axios';
 
 export const CHANGE_LIMIT = 'CHANGE_LIMIT';
 export const FETCH_DATA_SUCCESS = 'FETCH_DATA_SUCCESS';

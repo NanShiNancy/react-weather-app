@@ -8,7 +8,9 @@ import Header from './Component/Header';
 import Nav from './Component/Nav';
 import Main from './Component/Main';
 import Footer from './Component/Footer';
-import {fetchDataThunkAction} from './redux/weatherActions';
+import {fetchDataThunkAction} from './redux/actions/weatherActions';
+
+
 
 
 class App extends React.Component{
@@ -25,9 +27,9 @@ class App extends React.Component{
   }
     //fetch data
  
-  toggleUnit = () => {
-    this.setState(state => ({unit: state.unit ==='c'? 'f' : 'c'}));
-  }
+  // toggleUnit = () => {
+  //   this.setState(state => ({unit: state.unit ==='c'? 'f' : 'c'}));
+  // }
  
   onchangeInputHandeler=event=> {
 		this.setState({input: event.target.value});
@@ -46,11 +48,11 @@ class App extends React.Component{
           inputValue={this.state.input}
           onchangeInputHandeler={this.onchangeInputHandeler} 
           CitySearchHandler={this.citySearchHandler}
-          toggleUnit={this.toggleUnit}
-          unit={this.state.unit}/>
-          
+          toggleUnit={this.props.toggleUnit}
+          unit={this.props.unit}/>
+         
         <Main 
-          unit={this.state.unit}/>        
+          unit={this.props.unit}/>        
         <Footer />
       </div>
     );
@@ -61,10 +63,11 @@ class App extends React.Component{
 
 const mapStateToProps = state => ({
   limit: state.weather.limit,
-  
+  unit: state.nav.unit,
 });
 
 const mapDispatchToProps = dispatch =>({
   fetchWeatherData : city=> dispatch (fetchDataThunkAction(city)),
+  
 });
 export default connect(mapStateToProps,mapDispatchToProps)(App);

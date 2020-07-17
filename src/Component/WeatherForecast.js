@@ -3,7 +3,7 @@ import ForecastRow from './ForecastRow';
 import {format} from 'date-fns';
 
 import {connect} from 'react-redux';
-import {changeLimitAction} from '../redux/weatherActions';
+import {changeLimitAction} from '../redux/actions/weatherActions';
 
 class WeatherForecast extends React.Component {  
     
@@ -49,5 +49,6 @@ const mapStateToProps = state => ({
 });
 const mapDispatchToProps = dispatch => ({
     changeLimit: limit=> dispatch (changeLimitAction(limit)), 
+    
 });
 export default connect(mapStateToProps,mapDispatchToProps)(WeatherForecast);
