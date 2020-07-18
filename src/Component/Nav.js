@@ -1,16 +1,25 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import { changeUnit } from '../redux/actions/navActions';
+import { unitChange, setCityValue } from '../redux/actions/navActions';
+import {fetchDataThunkAction} from '../redux/actions/weatherActions';
 
 
 
-const Nav = (props)=> (
-    <nav>
-		  	
-				<input className="search-input" onChange={props.onchangeInputHandeler}/>
+function Nav (props) {
+	
+	const handleKeyPress = event => {
+		if (event.key === 'Enter') {
+			props.fetchWeatherData(props.input);
+		}
+	};
+    return (
+		<nav>	  	
+				<input className="search-input" 
+						onChange={event=>props.set_city_value(event.target.value)}
+						onKeyPress={handleKeyPress}/>
                 <button 
                     className="search-btn"
-                    onClick={props.CitySearchHandler}
+                    onClick={()=>props.fetchWeatherData(props.input)}
                     >
 					<i className="fa fa-search" aria-hidden={true}/>
 				</button>
@@ -22,14 +31,17 @@ const Nav = (props)=> (
 				</button>
 		  	
 		</nav>
-);
-
-
+	);
+};
+	
 const mapStateToProps = state => ({
 	unit: state.nav.unit,
+	input: state.nav.value,
 });
   
 const mapDispatchToProps = dispatch =>({
-	toggleUnit: () => dispatch (changeUnit()),
+	toggleUnit: () => dispatch (unitChange()),
+	set_city_value: (value) => dispatch(setCityValue(value)),
+	fetchWeatherData : city=> dispatch (fetchDataThunkAction(city)),
 });
   export default connect(mapStateToProps,mapDispatchToProps)(Nav);

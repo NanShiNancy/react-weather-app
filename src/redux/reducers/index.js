@@ -5,7 +5,7 @@ import navReducers from './navReducers';
 
 const reducers = combineReducers({
     weather: weatherReducer,
-    nav: navReducers
+    nav: navReducers,
 });
 
 
