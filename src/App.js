@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 
 import './App.css';
 import Header from './Component/Header';
-import Nav from './Component/Nav';
+import Nav from './Component/Navigation';
 import Main from './Component/Main';
 import Footer from './Component/Footer';
 import {fetchDataThunkAction} from './redux/actions/weatherActions';
