@@ -13,12 +13,20 @@ class App extends React.Component{
     this.props.fetchWeatherData('Brisbane');
   };
 
+renderMain(){
+  if(this.props.hasError){
+    return "Something went wrong...";
+  }else{
+    return <Main/>;
+  }
+};
+  
   render(){
     return (
       <div className="weather-channel__container">
         <Header />
         <Nav />
-        <Main />        
+        {this.props.isLoading? "is Loading...": this.renderMain()}     
         <Footer />
       </div>
     );
@@ -26,7 +34,12 @@ class App extends React.Component{
 
 };
 
+const mapStateToProps = (state)=> ({
+  hasError: !!state.weather.error,
+  isLoading: state.weather.isLoading,
+});
+
 const mapDispatchToProps = dispatch =>({
   fetchWeatherData : city=> dispatch (fetchDataThunkAction(city)),
 });
-export default connect(null,mapDispatchToProps)(App);
+export default connect(mapStateToProps,mapDispatchToProps)(App);

@@ -22,13 +22,13 @@ const weatherReducer = (state= initialState, action) => {
                isLoading: true, 
             };
         case FETCH_DATA_SUCCESS:
-            // console.log('sus', action.data.data.data.city);
+            //  console.log('sus', action.data.data.data.city);
             const forecasts= action.data.data.data.forecast.slice(0,10);
             const city= action.data.data.data.city.name;
             const current = action.data.data.data.current;
             return{
-                isLoading: false,
                 ...state,
+                isLoading: false,
                 city,
                 current,
                 forecasts
