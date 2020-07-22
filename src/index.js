@@ -14,18 +14,13 @@ import reducers from './redux/reducers/index';
 import thunkMiddlware from 'redux-thunk';
 // import {composeWithDevTools} from 'redux-devtools-extension';
 
-const store = createStore(
-  reducers, applyMiddleware(thunkMiddlware));
+const store = createStore(reducers, applyMiddleware(thunkMiddlware));
 // composeWithDevTools(applyMiddleware(thunkMiddlware)),;
 // , window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 ReactDOM.render(
-  (<Provider store = {
-      store
-    } >
-    <
-    App / >
-    </Provider>
-  ),
+  (<Provider store = {store} >
+    <App />
+  </Provider>),
   document.getElementById('root')
 );
 
