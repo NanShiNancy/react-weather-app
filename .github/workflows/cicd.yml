@@ -24,7 +24,7 @@ jobs:
 
     - name: build
       run:
-        npm build
+        npm run build
 
     - name: upload artifact
       uses: actions/upload-artifact@master
