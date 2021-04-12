@@ -1,8 +1,8 @@
-This project has been deployed to Heroku:<br />
-https://nancy-react-weather-app.herokuapp.com
-
 This project has been deployed to aws s3:<br />
 http://jr-weather-app-react.s3-website-ap-southeast-2.amazonaws.com/
+
+This project has been deployed to Heroku:<br />
+https://nancy-react-weather-app.herokuapp.com
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
